@@ -37,8 +37,25 @@ def sine_wave_generator(sfreq,duration, wave_band='delta',
     return signals
 
 
-def nonst_narrow_wave_generator(sfreq, duration, peakfreq, fwhm):
-    freq = np.linspace(0, sfreq, sfreq*duration)
+def nonst_narrow_wave_generator(sfreq, duration, wave_band='delta', fwhm_ratio=0.5, white_noise=0.2):
+    
+    freq = np.linspace(0, sfreq, sfreq*duration)  
+
+    if wave_band == 'delta':
+        peakfreq = 2
+        fwhm = fwhm_ratio * peakfreq
+    if wave_band == 'theta':
+        peakfreq = 6
+        fwhm = fwhm_ratio * peakfreq
+    if wave_band == 'alpha':
+        peakfreq = 10
+        fwhm = fwhm_ratio * peakfreq
+    if wave_band == 'beta':
+        peakfreq = 20
+        fwhm = fwhm_ratio * peakfreq
+    if wave_band == 'gamma':
+        peakfreq = 60
+        fwhm = fwhm_ratio * peakfreq
 
     s = fwhm * (2*np.pi-1)/(4*np.pi)
     x = freq - peakfreq
